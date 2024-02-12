@@ -3,15 +3,17 @@
 // мажорный элемент - элемент который встречатся более чем N / 2 раз
 
 function majorityElement(nums: number[]) {
-  //const newArray = new Map<number, number>()
+  const newArray = new Map<number, number>()
 
-  let result = {}
-  nums.forEach(function (a) {
-    result[a] = result[a] + 1 || 1
-    //const element = Math.max(...newArray.keys())
-    //return newArray.get(element)
+  nums.forEach(num => {
+    let key = (newArray.get(num) || 0) + 1
+    newArray.set(num, key)
   })
-  console.log(result)
+  const element = Math.max(...newArray.values())
+  const newArray2 = new Map([...newArray.entries()].map(([k, v]) => [v, k]))
+
+  return newArray2.get(element)
 }
 
-console.log(majorityElement([110, 2, 8, 110, 5, 7]))
+
+console.log(majorityElement([0, 1, 44, 1, 44, 1]))
